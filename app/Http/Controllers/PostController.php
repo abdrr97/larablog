@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
     public function index()
     {
         $posts = Post::where('published', true)->latest()->paginate(15);
@@ -48,11 +53,15 @@ class PostController extends Controller
     }
     public function edit(Post $post)
     {
+        abort_if($post->user->id !== auth()->id(), 403);
+
         $categories = Category::all();
         return view('posts.edit', compact('post', 'categories'));
     }
     public function update(Request $request, Post $post)
     {
+        abort_if($post->user->id !== auth()->id(), 403);
+
         $request->validate([
             'title' => 'required|min:6',
             'content' => 'required',
@@ -80,6 +89,8 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+        abort_if($post->user->id !== auth()->id(), 403);
+
         Storage::delete($post->image);
         $post->delete();
 
