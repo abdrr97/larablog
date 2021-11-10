@@ -12,7 +12,34 @@
                     {{ $post->content }}
                 </p>
 
-                <h4>Comments</h4>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h4> Comments </h4>
+
+                        @auth
+                            <form action="{{ route('comment.store', $post) }}" method="POST">
+                                @csrf
+
+                                <textarea class="mb-3 form-control @error('content') is-invalid @enderror"
+                                    placeholder="comment section" name="content">{{ old('content') }}</textarea>
+                                @error('content')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                <button class="btn btn-primary"> Comment </button>
+                            </form>
+                        @else
+                            <p>
+                                You must
+                                <a href="{{ route('login') }}">Login</a>
+                                to comment
+                            </p>
+                        @endauth
+                    </div>
+                </div>
+
                 @forelse ($post->comments as $comment)
                     <div class="card mb-2">
                         <div class="card-body">

@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -18,8 +20,14 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::view('/', 'welcome');
+Route::get('/', [PostController::class, 'index']);
 Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
 
 
 Route::resource('posts', PostController::class);
+
+Route::get('/my-posts', [UserController::class, 'posts'])->name('user.posts');
+Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
+Route::put('/user/profile', [UserController::class, 'update'])->name('user.update');
+
+Route::post('/post/{post}/comment', [CommentController::class, 'store'])->name('comment.store');
