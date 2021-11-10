@@ -19,6 +19,7 @@
     php artisan larastarters:install
     npm install && npm run dev
 
+    FILESYSTEM_DRIVER=public # default (local)
 
     php artisan migrate:fresh
     php artisan storage:link

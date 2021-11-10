@@ -6,6 +6,8 @@
             <div class="col-md-8">
                 <h1 class="display-4"> {{ $post->title }}</h1>
 
+                <img src="{{ Storage::url($post->image) }}" class="img-fluid">
+
                 <p>
                     {{ $post->content }}
                 </p>

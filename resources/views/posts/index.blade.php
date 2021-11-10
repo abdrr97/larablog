@@ -24,7 +24,19 @@
                                     alt="">
                                 <b>{{ ucfirst($post->user->username) }}</b>
                             </div>
-                            {{ $post->created_at->diffForHumans() }}
+                            <div>
+                                <div class="btn-group">
+                                    <a class="btn btn-sm btn-warning" href="{{ route('posts.edit', $post) }}">
+                                        Edit Post
+                                    </a>
+                                    <form action="{{ route('posts.destroy', $post) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-danger">Delete Post</button>
+                                    </form>
+                                </div>
+                                {{ $post->created_at->diffForHumans() }}
+                            </div>
                         </div>
                     </article>
                 @empty

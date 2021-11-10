@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -16,7 +17,8 @@ class PostController extends Controller
     }
     public function create()
     {
-        return view('posts.create');
+        $categories = Category::all();
+        return view('posts.create', compact('categories'));
     }
     public function store(Request $request)
     {
@@ -24,7 +26,7 @@ class PostController extends Controller
             'title' => 'required|min:6',
             'content' => 'required',
             'image' => 'required|image|mimes:png,jpeg,jpg,svg|max:2048',
-            'category_id' => 'required|exists:categories'
+            'category_id' => 'required|exists:categories,id'
         ]);
         // upload image
         $path = $request->file('image')->store('posts');
@@ -46,7 +48,8 @@ class PostController extends Controller
     }
     public function edit(Post $post)
     {
-        return view('posts.edit', compact('post'));
+        $categories = Category::all();
+        return view('posts.edit', compact('post', 'categories'));
     }
     public function update(Request $request, Post $post)
     {
@@ -54,7 +57,7 @@ class PostController extends Controller
             'title' => 'required|min:6',
             'content' => 'required',
             'image' => 'image|mimes:png,jpeg,jpg,svg|max:2048',
-            'category_id' => 'required|exists:categories'
+            'category_id' => 'required|exists:categories,id'
         ]);
 
         $path = $post->image; // /posts/1.png
@@ -77,6 +80,7 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+        Storage::delete($post->image);
         $post->delete();
 
         return redirect()->route('posts.index');
