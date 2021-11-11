@@ -100,6 +100,13 @@
             @yield('content')
         </main>
     </div>
+
+    <script src="//cdn.ckeditor.com/4.16.2/basic/ckeditor.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.ckeditor').ckeditor();
+        });
+    </script>
 </body>
 
 </html>

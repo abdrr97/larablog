@@ -13,7 +13,7 @@
                             <h4><a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a></h4>
 
                             <p>
-                                {{ $post->content }}
+                                {!! Str::limit($post->content, 50) !!}
                             </p>
 
                             <div>Comments: {{ $post->comments->count() }}</div>
@@ -22,7 +22,9 @@
                             <div>
                                 <img style="border-radius:50%;width:30px" src="{{ Storage::url($post->user->avatar) }}"
                                     alt="">
-                                <b>{{ ucfirst($post->user->username) }}</b>
+                                <a class="btn-link" href="{{ route('user.show', $post->user->username) }}">
+                                    <b>{{ ucfirst($post->user->username) }}</b>
+                                </a>
                             </div>
                             <div>
                                 @auth

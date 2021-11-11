@@ -49,6 +49,7 @@ class PostController extends Controller
     }
     public function show(Post $post) // route model binding
     {
+        abort_if(!$post->published && $post->user_id !== auth()->id(), 403);
         return view('posts.show', compact('post'));
     }
     public function edit(Post $post)

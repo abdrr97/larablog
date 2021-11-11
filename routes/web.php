@@ -28,6 +28,7 @@ Route::resource('posts', PostController::class);
 
 Route::get('/my-posts', [UserController::class, 'posts'])->name('user.posts');
 Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
+Route::get('/p/@{username}', [UserController::class, 'show'])->name('user.show');
 Route::put('/user/profile', [UserController::class, 'update'])->name('user.update');
 
 Route::post('/post/{post}/comment', [CommentController::class, 'store'])->name('comment.store');

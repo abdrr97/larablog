@@ -11,7 +11,7 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->only(['posts']);
+        $this->middleware('auth')->except(['show']);
     }
 
     public function posts()
@@ -31,7 +31,6 @@ class UserController extends Controller
     // PUT
     public function update(Request $request)
     {
-
         $user = auth()->user();
         $avatar_path = $user->avatar;
         if ($request->hasFile('avatar'))
@@ -49,6 +48,16 @@ class UserController extends Controller
             'avatar' => $avatar_path
         ]);
 
+        // flash message session
         return redirect()->back();
+    }
+
+    public function show(string $username)
+    {
+        $user = User::where('username', $username)->first();
+
+        abort_if($user === null, 404);
+
+        return view('users.show', compact('user'));
     }
 }

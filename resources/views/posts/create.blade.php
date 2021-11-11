@@ -40,7 +40,7 @@
 
                                 <div class="col-md-6">
                                     <textarea id="content" rows="10"
-                                        class="form-control @error('content') is-invalid @enderror"
+                                        class="ckeditor form-control @error('content') is-invalid @enderror"
                                         name="content">{{ old('content') }}</textarea>
 
                                     @error('content')

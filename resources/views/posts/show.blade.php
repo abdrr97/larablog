@@ -9,7 +9,7 @@
                 <img src="{{ Storage::url($post->image) }}" class="img-fluid">
 
                 <p>
-                    {{ $post->content }}
+                    {!! $post->content !!}
                 </p>
 
 
