@@ -18,9 +18,7 @@
                                 </span>
                             </h4>
 
-                            <p>
-                                {{ $post->content }}
-                            </p>
+                            <p> {!! Str::limit($post->content, 50) !!}</p>
 
                             <div>Comments: {{ $post->comments->count() }}</div>
                         </div>

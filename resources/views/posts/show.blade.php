@@ -31,11 +31,7 @@
                                 <button class="btn btn-primary"> Comment </button>
                             </form>
                         @else
-                            <p>
-                                You must
-                                <a href="{{ route('login') }}">Login</a>
-                                to comment
-                            </p>
+                            <p> You must <a href="{{ route('login') }}">Login</a> to Comment </p>
                         @endauth
                     </div>
                 </div>
